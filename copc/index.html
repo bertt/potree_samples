@@ -54,8 +54,8 @@
 			$("#menu_appearance").next().show();
 		});
 
-        // var path = "../pointclouds/ign/LHD_FXX_1226_6051_PTS_O_LAMB93_IGN69.copc.laz";
-		var path = "https://corsproxy.io/?https://storage.sbg.cloud.ovh.net/v1/AUTH_63234f509d6048bca3c9fd7928720ca1/ppk-lidar/VU/LHD_FXX_1226_6051_PTS_O_LAMB93_IGN69.copc.laz";
+		// monte cinto
+		var path = "https://corsproxy.io/?https://storage.sbg.cloud.ovh.net/v1/AUTH_63234f509d6048bca3c9fd7928720ca1/ppk-lidar/US/LHD_FXX_1189_6161_PTS_O_LAMB93_IGN69.copc.laz";
 		var name = "lion";
 
 		var getQueryParam = function(name) {
@@ -77,10 +77,12 @@
 		var c = getQueryParam('c');
 		Potree.loadPointCloud(path, name, function(e){
 			viewer.scene.addPointCloud(e.pointcloud);
-
 			let material = e.pointcloud.material;
 			material.size = 1;
 			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
+            material.color = new THREE.Color(0xff0000); // Default red color if no RGB is provided
+            material.activeAttributeName = "elevation"; // Set an active attribute to color by elevation
+			//material.activeAttributeName = 'intensity'
 			if (c) material.activeAttributeName = c;
 
 			viewer.fitToScreen(0.5);
